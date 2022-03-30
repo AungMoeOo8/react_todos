@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext, useState } from "react";
+import "./App.css";
+import { TodoProvider } from "./todoContext";
+import Todos from "./todos";
+import { todoContext } from "./todoContext";
 
 function App() {
+  let { setTodo } = useContext(todoContext);
+
+  const [text, setText] = useState("");
+
+  const addTodo = () => {
+    setTodo((current) => [...current, text]);
+    setText("");
+  };
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <h2>Todos</h2>
+        <div className="todoinput-container">
+          <input
+            type="text"
+            placeholder="Add todos"
+            value={text}
+            onChange={(event) => setText(event.target.value)}
+          />
+          <div className="btn" onClick={addTodo}>
+            Add
+          </div>
+        </div>
+
+        <Todos />
+      </div>
     </div>
   );
 }
