@@ -10,14 +10,16 @@ function App() {
   const [text, setText] = useState("");
 
   const addTodo = () => {
+    if (text === "") return;
+
     setTodo((current) => [...current, text]);
     setText("");
   };
-  
+
   return (
     <div className="App">
       <div className="container">
-        <h2>Todos</h2>
+        <h2>To-do List</h2>
         <div className="todoinput-container">
           <input
             type="text"
